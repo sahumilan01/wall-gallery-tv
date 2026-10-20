@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#211b16">
+  <title>Wall Gallery</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js"></script>
+  <script src="vendor/webOSTV.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <svg class="symbol-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-prev" viewBox="0 0 32 32"><path d="M20 7 11 16l9 9"/></symbol>
+    <symbol id="i-next" viewBox="0 0 32 32"><path d="m12 7 9 9-9 9"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 32 32"><path d="M11 8v16M21 8v16"/></symbol>
+    <symbol id="i-play" viewBox="0 0 32 32"><path d="m12 7 13 9-13 9Z"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 32 32"><rect x="6" y="6" width="8" height="8" rx="1"/><rect x="18" y="6" width="8" height="8" rx="1"/><rect x="6" y="18" width="8" height="8" rx="1"/><rect x="18" y="18" width="8" height="8" rx="1"/></symbol>
+    <symbol id="i-apps" viewBox="0 0 32 32"><rect x="4" y="6" width="24" height="20" rx="3"/><path d="M10 12h4v8h-4zM18 12h4v8h-4z"/></symbol>
+    <symbol id="i-frame" viewBox="0 0 32 32"><rect x="4" y="6" width="24" height="20" rx="1"/><path d="M8 10h16v12H8Z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 32 32"><rect x="9" y="3" width="14" height="26" rx="3"/><path d="M14 24h4"/></symbol>
+    <symbol id="i-close" viewBox="0 0 32 32"><path d="m9 9 14 14M23 9 9 23"/></symbol>
+    <symbol id="i-check" viewBox="0 0 32 32"><path d="m7 16 6 6L25 10"/></symbol>
+  </defs></svg>
+
+  <main id="gallery" class="gallery" data-frame="walnut" data-mat="linen" aria-label="Wall Gallery">
+    <div class="frame"><div class="mat"><div class="canvas" id="canvas">
+      <img id="artwork" class="artwork" alt="" draggable="false">
+      <div id="empty-state" class="empty-state"><span class="small-caps">Wall Gallery</span><h1>A little space<br>for beautiful things.</h1><p>Loading your collection…</p></div>
+    </div></div></div>
+    <div class="night-veil" id="night-veil"></div>
+    <aside id="clock" class="clock" aria-label="Clock"><time id="clock-time">—</time><span id="clock-date"></span></aside>
+    <div class="controls-scrim" aria-hidden="true"></div>
+    <section id="caption" class="caption" aria-live="polite"><div class="small-caps" id="artwork-artist"></div><h1 id="artwork-title"></h1><p id="artwork-date"></p></section>
+    <p id="toast" class="toast" role="status"></p>
+    <div id="controls" class="controls" aria-hidden="true">
+      <div class="control-heading"><span class="small-caps">Wall Gallery</span><span id="connection-status" class="connection-status">Local collection</span></div>
+      <nav class="dock" aria-label="Gallery controls">
+        <button data-action="previous" aria-label="Previous artwork"><svg><use href="#i-prev"/></svg><span>Previous</span></button>
+        <button id="play-button" data-action="togglePause" aria-label="Pause slideshow"><svg><use id="play-icon" href="#i-pause"/></svg><span id="play-label">Pause</span></button>
+        <button data-action="next" aria-label="Next artwork"><svg><use href="#i-next"/></svg><span>Next</span></button>
+        <span class="dock-divider" aria-hidden="true"></span>
+        <button data-panel="collection"><svg><use href="#i-grid"/></svg><span>Collection</span></button>
+        <button data-panel="apps"><svg><use href="#i-apps"/></svg><span>Apps</span></button>
+        <button data-panel="settings"><svg><use href="#i-frame"/></svg><span>Appearance</span></button>
+        <button data-panel="companion"><svg><use href="#i-phone"/></svg><span>Connect phone</span></button>
+      </nav>
+      <p class="remote-hint">← → browse <span>·</span> OK select <span>·</span> Back return to art</p>
+    </div>
+
+    <section id="collection-panel" class="panel collection-panel" role="dialog" aria-modal="true" aria-labelledby="collection-heading" hidden>
+      <header class="panel-header"><div><span class="small-caps">Your walls, your world</span><h2 id="collection-heading">The collection</h2></div><button class="icon-button" data-close aria-label="Close collection"><svg><use href="#i-close"/></svg></button></header>
+      <div class="collection-tabs"><button class="tab is-active" data-filter="all">All works</button><button class="tab" data-filter="art">Art</button><button class="tab" data-filter="photo">Your photos</button><span id="collection-count"></span></div>
+      <div id="collection-grid" class="collection-grid"></div>
+      <p class="panel-note">Add your photos from the phone companion. Artwork stays on your local network.</p>
+    </section>
+
+    <section id="apps-panel" class="panel apps-panel" role="dialog" aria-modal="true" aria-labelledby="apps-heading" hidden>
+      <header class="panel-header"><div><span class="small-caps">Everything in its place</span><h2 id="apps-heading">Your apps, at home.</h2></div><button class="icon-button" data-close aria-label="Close apps"><svg><use href="#i-close"/></svg></button></header>
+      <div class="apps-heading-line"><p id="apps-status">Connect the TV from your phone companion.</p><span id="apps-count"></span></div>
+      <div id="apps-grid" class="apps-grid"></div>
+      <div id="apps-unavailable" class="apps-unavailable" hidden><p id="apps-unavailable-message">Pair your TV from the phone companion to see your installed apps here.</p><button data-panel="companion">Connect your phone</button></div>
+      <p class="panel-note">Your installed apps, with your favorites first. Press Back to return to the gallery.</p>
+    </section>
+
+    <section id="settings-panel" class="panel settings-panel" role="dialog" aria-modal="true" aria-labelledby="settings-heading" hidden>
+      <header class="panel-header"><div><span class="small-caps">Make yourself at home</span><h2 id="settings-heading">The finishing touches</h2></div><button class="icon-button" data-close aria-label="Close appearance"><svg><use href="#i-close"/></svg></button></header>
+      <div class="settings-list">
+        <button class="setting-row" data-setting="frame"><span><strong>Frame</strong><small>A warm edge for your artwork</small></span><b id="value-frame">Walnut</b></button>
+        <button class="setting-row" data-setting="mat"><span><strong>Mount</strong><small>A little room to breathe</small></span><b id="value-mat">Linen</b></button>
+        <button class="setting-row" data-setting="clock"><span><strong>Clock & date</strong><small>Quietly in the corner</small></span><b id="value-clock">On</b></button>
+        <button class="setting-row" data-setting="intervalSeconds"><span><strong>Change artwork</strong><small>Take your time with each piece</small></span><b id="value-intervalSeconds">5 minutes</b></button>
+        <div class="brightness-row"><span><strong>Gallery brightness</strong><small>Adjusts the artwork, not the TV backlight</small></span><div><button id="brightness-down" aria-label="Lower gallery brightness">−</button><b id="value-brightness">85%</b><button id="brightness-up" aria-label="Raise gallery brightness">+</button></div></div>
+        <button class="setting-row" data-setting="nightDim"><span><strong>Evening dimming</strong><small>Softer between 10 pm and 7 am</small></span><b id="value-nightDim">On</b></button>
+        <button class="setting-row" data-setting="showCaption"><span><strong>Artwork details</strong><small>Show when the controls are open</small></span><b id="value-showCaption">On</b></button>
+      </div>
+      <p class="panel-note">Settings save automatically. Your TV's screen protection stays in control.</p>
+    </section>
+
+    <section id="companion-panel" class="panel companion-panel" role="dialog" aria-modal="true" aria-labelledby="companion-heading" hidden>
+      <header class="panel-header"><div><span class="small-caps">A gallery, together</span><h2 id="companion-heading">Your phone is the remote.</h2></div><button class="icon-button" data-close aria-label="Close companion"><svg><use href="#i-close"/></svg></button></header>
+      <p class="companion-intro">Open this address on a phone connected to the same Wi-Fi. Add photos, choose a painting, and make the room your own.</p>
+      <a id="companion-link" class="companion-address" href="#" target="_blank" rel="noopener">Set up your local companion</a>
+      <form id="companion-form"><label for="companion-url">Companion server address</label><div class="url-entry"><input id="companion-url" type="url" inputmode="url" placeholder="Companion URL" autocomplete="off"><button type="submit">Connect</button></div></form>
+      <p id="companion-detail" class="panel-note">The gallery also works offline with its built-in collection.</p>
+    </section>
+  </main>
+</body>
+</html>

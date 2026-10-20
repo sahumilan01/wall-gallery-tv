@@ -1,0 +1,68 @@
+[
+  {
+    "id": "cma-171296",
+    "title": "Vale of Kashmir",
+    "artist": "Robert S. Duncanson",
+    "date": "1867",
+    "image": "assets/art/cma-171296.jpg",
+    "source": "Cleveland Museum of Art",
+    "sourceUrl": "https://clevelandart.org/art/2014.12",
+    "license": "CC0",
+    "kind": "art"
+  },
+  {
+    "id": "cma-136510",
+    "title": "Water Lilies (Agapanthus)",
+    "artist": "Claude Monet",
+    "date": "c. 1915–26",
+    "image": "assets/art/cma-136510.jpg",
+    "source": "Cleveland Museum of Art",
+    "sourceUrl": "https://clevelandart.org/art/1960.81",
+    "license": "CC0",
+    "kind": "art"
+  },
+  {
+    "id": "cma-111654",
+    "title": "South Wind, Clear Sky, from Thirty-Six Views of Mount Fuji",
+    "artist": "Katsushika Hokusai",
+    "date": "early 1830s",
+    "image": "assets/art/cma-111654.jpg",
+    "source": "Cleveland Museum of Art",
+    "sourceUrl": "https://clevelandart.org/art/1930.189",
+    "license": "CC0",
+    "kind": "art"
+  },
+  {
+    "id": "cma-95272",
+    "title": "Gardener's House at Antibes",
+    "artist": "Claude Monet",
+    "date": "1888",
+    "image": "assets/art/cma-95272.jpg",
+    "source": "Cleveland Museum of Art",
+    "sourceUrl": "https://clevelandart.org/art/1916.1044",
+    "license": "CC0",
+    "kind": "art"
+  },
+  {
+    "id": "cma-125234",
+    "title": "Low Tide at Pourville, near Dieppe, 1882",
+    "artist": "Claude Monet",
+    "date": "1882",
+    "image": "assets/art/cma-125234.jpg",
+    "source": "Cleveland Museum of Art",
+    "sourceUrl": "https://clevelandart.org/art/1947.196",
+    "license": "CC0",
+    "kind": "art"
+  },
+  {
+    "id": "cma-123249",
+    "title": "Basket of Peonies",
+    "artist": "Katsushika Hokusai",
+    "date": "1810 or 1814",
+    "image": "assets/art/cma-123249.jpg",
+    "source": "Cleveland Museum of Art",
+    "sourceUrl": "https://clevelandart.org/art/1943.5",
+    "license": "CC0",
+    "kind": "art"
+  }
+]
